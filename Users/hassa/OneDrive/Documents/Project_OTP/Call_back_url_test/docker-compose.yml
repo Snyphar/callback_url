@@ -1,0 +1,12 @@
+services:
+  callback:
+    build: .
+    image: otp-callback:latest
+    container_name: otp-callback
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PORT: "5005"
+    ports:
+      - "5005:5005"
