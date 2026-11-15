@@ -1,0 +1,12 @@
+SUBJECT: Proposal Information Request
+
+Dear Acme Solutions team,
+
+I hope this email finds you well. We are currently reviewing your proposal and would like some additional information.
+
+Could you please send us the pricing for the Enterprise tier, including the overage rates? We would appreciate receiving this before our decision deadline of June 30th.
+
+Thank you for your assistance.
+
+Best regards,
+Procurement, Northwind Ltd.

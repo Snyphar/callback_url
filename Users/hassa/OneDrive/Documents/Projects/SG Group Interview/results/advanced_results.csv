@@ -1,0 +1,11 @@
+scenario_id,intent,tone,strategy,fact_faithfulness,tone_alignment,structural_soundness,composite,facts_covered,facts_total,fabricated_count,tone_overall_5,struct_checks_passed,length_ratio,word_count
+S01,Follow up after a discovery meeting,warm and professional,advanced,1.0,1.0,1.0,1.0,3,3,0,5.0,6,1.08,90
+S02,Request detailed proposal information from a vendor,formal,advanced,1.0,1.0,1.0,1.0,3,3,0,5.0,6,1.01,87
+S03,Notify the engineering team of a production outage,urgent but calm,advanced,1.0,1.0,1.0,1.0,3,3,0,5.0,6,1.06,67
+S04,Apologize to a customer for a shipping delay,empathetic and sincere,advanced,1.0,1.0,1.0,1.0,3,3,0,5.0,6,1.04,95
+S05,Request a deadline extension on a deliverable,professional and accountable,advanced,1.0,1.0,1.0,1.0,3,3,0,5.0,6,0.99,92
+S06,Introduce a new account manager to a client,friendly and reassuring,advanced,1.0,1.0,1.0,1.0,3,3,0,5.0,6,1.02,97
+S07,Send a firm but polite reminder about an overdue invoice,firm but courteous,advanced,1.0,0.75,1.0,0.9167,3,3,0,4.0,6,0.97,95
+S08,Thank a speaker for presenting at a company event,appreciative and enthusiastic,advanced,1.0,1.0,1.0,1.0,3,3,0,5.0,6,1.0,91
+S09,Decline a partnership proposal while keeping the door open,diplomatic and respectful,advanced,1.0,1.0,1.0,1.0,3,3,0,5.0,6,1.02,106
+S10,Invite select customers to a private beta program,exciting and exclusive,advanced,1.0,0.75,1.0,0.9167,3,3,0,4.0,6,0.92,106

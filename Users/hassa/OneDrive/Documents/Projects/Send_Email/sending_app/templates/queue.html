@@ -1,0 +1,99 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Queue</h5>
+    <form method="get" class="row g-2 mb-3">
+      <div class="col-auto">
+        <select name="filter" class="form-select">
+          <option value="all" {% if filter == "all" %}selected{% endif %}>
+            All
+          </option>
+          <option value="mine" {% if filter == "mine" %}selected{% endif %}>
+            Mine
+          </option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <select name="status" class="form-select">
+          <option value="">Any status</option>
+          <option
+            value="queued"
+            {%
+            if
+            status == "queued"
+            %}selected{%
+            endif
+            %}
+          >
+            queued
+          </option>
+          <option
+            value="sending"
+            {%
+            if
+            status == "sending"
+            %}selected{%
+            endif
+            %}
+          >
+            sending
+          </option>
+          <option value="sent" {% if status == "sent" %}selected{% endif %}>
+            sent
+          </option>
+          <option
+            value="failed"
+            {%
+            if
+            status == "failed"
+            %}selected{%
+            endif
+            %}
+          >
+            failed
+          </option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary" type="submit">Filter</button>
+      </div>
+    </form>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>To</th>
+            <th>Subject</th>
+            <th>Status</th>
+            <th>Batch</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in emails %}
+          <tr>
+            <td>{{ e.to_email }}</td>
+            <td>{{ e.subject }}</td>
+            <td>{{ e.status }}</td>
+            <td>{{ e.batch_id }}</td>
+            <td>
+              {% if e.status == 'queued' %}
+              <form
+                method="post"
+                action="{{ url_for('stop_email') }}"
+                style="display: inline"
+              >
+                <input type="hidden" name="email_id" value="{{ e.id }}" />
+                <button class="btn btn-sm btn-danger">Stop</button>
+              </form>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

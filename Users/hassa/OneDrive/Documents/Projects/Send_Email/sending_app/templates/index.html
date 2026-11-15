@@ -1,0 +1,136 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row g-4">
+  <div class="col-lg-6">
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, msg in messages %}
+    <div class="alert alert-{{ 'danger' if category=='danger' else 'info' }}">
+      {{ msg }}
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Compose</h5>
+        <form
+          action="{{ url_for('send') }}"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="mb-3">
+            <label class="form-label">Prefix</label>
+            <input
+              class="form-control"
+              type="text"
+              name="prefix"
+              value="hello"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Domain</label>
+            <select class="form-select" name="domain">
+              {% for d in domains %}
+              <option value="{{ d.id }}">
+                {{ d.domain_name }} ({{ d.from_address }})
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Subject</label>
+            <input
+              class="form-control"
+              type="text"
+              name="subject"
+              value="Hello from Flask"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Text</label>
+            <input
+              class="form-control"
+              type="text"
+              name="text"
+              value="Sent via Flask app"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Recipients (one per line)</label>
+            <textarea
+              class="form-control"
+              name="recipients"
+              rows="5"
+            ></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Upload template (HTML)</label>
+            <input
+              class="form-control"
+              type="file"
+              name="template"
+              id="template-file"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Or paste template HTML</label>
+            <textarea
+              class="form-control template-editor"
+              name="template_text"
+              id="template-text"
+              rows="8"
+              spellcheck="false"
+              placeholder="Paste your email HTML here..."
+            ></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Or choose saved template</label>
+            <select class="form-select" name="template_id" id="template-select">
+              <option value="">-- none --</option>
+              {% for t in templates %}
+              <option value="{{ t.id }}">
+                {{ t.name }} {% if t.owner %}(by {{ t.owner.username }}){% else
+                %}(global){% endif %}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary" type="submit">Send</button>
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              id="preview-btn"
+            >
+              Preview
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Live Preview</h5>
+        <iframe id="preview-frame" class="preview-frame"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // map of template id -> html content
+  window.TEMPLATES = {};
+  {% for t in templates %}
+    window.TEMPLATES["{{ t.id }}"] = {{ t.html|tojson }};
+  {% endfor %}
+</script>
+{% endblock %}

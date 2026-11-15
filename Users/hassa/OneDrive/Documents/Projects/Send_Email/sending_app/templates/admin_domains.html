@@ -1,0 +1,100 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Domains</h5>
+        <form method="post" action="{{ url_for('add_domain') }}">
+          <div class="mb-3">
+            <label class="form-label">Domain name</label>
+            <input
+              class="form-control"
+              name="domain_name"
+              placeholder="example.com"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">From address</label>
+            <input
+              class="form-control"
+              name="from_address"
+              placeholder="noreply@example.com"
+              required
+            />
+          </div>
+          <button class="btn btn-primary" type="submit">Add Domain</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Add Prefix</h5>
+        <form method="post" action="{{ url_for('add_prefix') }}">
+          <div class="mb-3">
+            <label class="form-label">Domain</label>
+            <select class="form-select" name="domain_id">
+              {% for d in domains %}
+              <option value="{{ d.id }}">{{ d.domain_name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Prefix</label>
+            <input
+              class="form-control"
+              name="prefix"
+              placeholder="hello"
+              required
+            />
+          </div>
+          <button class="btn btn-primary" type="submit">Add Prefix</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Existing Domains & Prefixes</h5>
+        <ul class="list-group">
+          {% for d in domains %}
+          <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <strong>{{ d.domain_name }}</strong> — {{ d.from_address }}
+                <div class="mt-2">
+                  {% if d.prefixes %} {% for p in d.prefixes %}
+                  <span class="badge bg-secondary me-1">{{ p.prefix }}</span>
+                  {% endfor %} {% else %}
+                  <small class="text-muted">No prefixes</small>
+                  {% endif %}
+                </div>
+              </div>
+              <div>
+                <form
+                  method="post"
+                  action="{{ url_for('delete_domain') }}"
+                  onsubmit="
+                    return confirm(
+                      'Delete domain? This cannot be undone if there are no queued emails.',
+                    );
+                  "
+                >
+                  <input type="hidden" name="domain_id" value="{{ d.id }}" />
+                  <button class="btn btn-sm btn-danger" type="submit">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

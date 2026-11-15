@@ -1,0 +1,182 @@
+[
+  {
+    "id": "S01",
+    "input": {
+      "intent": "Follow up after a discovery meeting",
+      "key_facts": [
+        "Enjoyed discussing their migration to the cloud",
+        "Will send the technical architecture document by Thursday",
+        "Propose a 30-minute scoping call next week"
+      ],
+      "tone": "warm and professional",
+      "recipient": "Priya",
+      "sender": "Daniel Owens"
+    },
+    "reference": {
+      "subject": "Following up on our cloud migration discussion",
+      "body": "Hi Priya,\n\nThank you again for the time today — I really enjoyed digging into your cloud migration plans and understanding where the team wants to take things.\n\nAs promised, I'll send over the technical architecture document by Thursday so you have the full picture to review. Once you've had a chance to look it over, I'd love to set up a 30-minute scoping call next week to align on next steps.\n\nLooking forward to it.\n\nBest regards,\nDaniel Owens"
+    }
+  },
+  {
+    "id": "S02",
+    "input": {
+      "intent": "Request detailed proposal information from a vendor",
+      "key_facts": [
+        "Need pricing for the Enterprise tier including overage rates",
+        "Require a current SOC 2 Type II report",
+        "Decision deadline is June 30th"
+      ],
+      "tone": "formal",
+      "recipient": "the Acme Solutions team",
+      "sender": "Procurement, Northwind Ltd."
+    },
+    "reference": {
+      "subject": "Request for Enterprise Proposal Details",
+      "body": "Dear Acme Solutions team,\n\nThank you for the introductory materials shared last week. To move our evaluation forward, we require some additional detail.\n\nSpecifically, we would appreciate full pricing for the Enterprise tier, including any overage rates, along with a copy of your current SOC 2 Type II report for our security review. As our decision deadline is June 30th, an early response would be greatly appreciated.\n\nPlease let us know if any further information would be helpful from our side.\n\nKind regards,\nProcurement, Northwind Ltd."
+    }
+  },
+  {
+    "id": "S03",
+    "input": {
+      "intent": "Notify the engineering team of a production outage",
+      "key_facts": [
+        "Checkout has been failing since 2:10 PM UTC",
+        "Engineering is investigating, ETA to fix is 30 minutes",
+        "Freeze all deployments until the all-clear"
+      ],
+      "tone": "urgent but calm",
+      "recipient": "Engineering",
+      "sender": "Incident Commander"
+    },
+    "reference": {
+      "subject": "ACTION NEEDED: Checkout outage — deployment freeze in effect",
+      "body": "Engineering,\n\nCheckout has been failing for customers since 2:10 PM UTC. The on-call team is actively investigating, with an estimated fix within 30 minutes.\n\nEffective immediately, please freeze all deployments until we issue the all-clear — we need a clean window to verify the fix without new variables.\n\nI'll share an update the moment our status changes.\n\nThanks,\nIncident Commander"
+    }
+  },
+  {
+    "id": "S04",
+    "input": {
+      "intent": "Apologize to a customer for a shipping delay",
+      "key_facts": [
+        "Order #48217 was delayed by a warehouse issue",
+        "It will now ship within 2 business days",
+        "Offering a 15% discount on the next order as an apology"
+      ],
+      "tone": "empathetic and sincere",
+      "recipient": "Mr. Alvarez",
+      "sender": "Customer Care, Brightline"
+    },
+    "reference": {
+      "subject": "An apology and an update on your order #48217",
+      "body": "Dear Mr. Alvarez,\n\nI'm sorry for the delay with your order #48217. A warehouse issue on our end held it up, and I completely understand how frustrating it is to wait longer than expected.\n\nThe good news is that your order is now prioritized and will ship within two business days. As a genuine apology for the inconvenience, I'd also like to offer you 15% off your next order.\n\nThank you for your patience and for giving us the chance to make this right.\n\nWarm regards,\nCustomer Care, Brightline"
+    }
+  },
+  {
+    "id": "S05",
+    "input": {
+      "intent": "Request a deadline extension on a deliverable",
+      "key_facts": [
+        "The market analysis section needs one more round of data validation",
+        "Requesting to move the deadline from Friday to the following Tuesday",
+        "All other sections are on track and can be delivered on time"
+      ],
+      "tone": "professional and accountable",
+      "recipient": "Sandra",
+      "sender": "Marcus"
+    },
+    "reference": {
+      "subject": "Request to adjust the report deadline",
+      "body": "Hi Sandra,\n\nI wanted to flag a timing adjustment early rather than at the last minute. The market analysis section needs one more round of data validation to meet the standard we both want, and rushing it risks errors in the numbers.\n\nTo do it properly, I'd like to request moving that section's deadline from Friday to the following Tuesday. To be clear, all other sections are on track and I can deliver them on time as planned.\n\nHappy to walk through the details if useful. Thanks for understanding.\n\nBest,\nMarcus"
+    }
+  },
+  {
+    "id": "S06",
+    "input": {
+      "intent": "Introduce a new account manager to a client",
+      "key_facts": [
+        "Rachel Kim is taking over as the client's account manager",
+        "Rachel has 8 years of experience in B2B SaaS onboarding",
+        "A joint handover call is proposed for next Wednesday at 10 AM"
+      ],
+      "tone": "friendly and reassuring",
+      "recipient": "the team at Vantage",
+      "sender": "Tom Becker"
+    },
+    "reference": {
+      "subject": "Introducing your new account manager, Rachel Kim",
+      "body": "Hi team at Vantage,\n\nI'm delighted to introduce Rachel Kim, who will be taking over as your account manager. You're in excellent hands — Rachel brings 8 years of experience in B2B SaaS onboarding and a real knack for making transitions seamless.\n\nTo make the handover smooth, we'd like to propose a joint call next Wednesday at 10 AM, so you can meet Rachel and we can walk through everything together. Nothing about your service will skip a beat.\n\nPlease let us know if that time works for you.\n\nWarm regards,\nTom Becker"
+    }
+  },
+  {
+    "id": "S07",
+    "input": {
+      "intent": "Send a firm but polite reminder about an overdue invoice",
+      "key_facts": [
+        "Invoice #1043 for $4,200 was due on May 15th",
+        "The account is now 30 days past due",
+        "Requesting payment or a status update by end of week to avoid a late fee"
+      ],
+      "tone": "firm but courteous",
+      "recipient": "Accounts Payable",
+      "sender": "Lena Fischer, Finance"
+    },
+    "reference": {
+      "subject": "Reminder: Invoice #1043 is now 30 days overdue",
+      "body": "Dear Accounts Payable,\n\nI'm writing to follow up on invoice #1043 for $4,200, which was due on May 15th and is now 30 days past due.\n\nWe value our working relationship, so I'd like to resolve this promptly. Could you please arrange payment, or send a status update, by the end of this week? Doing so will allow us to avoid applying the late fee outlined in our terms.\n\nIf there's an issue with the invoice, let me know and I'll be glad to help sort it out.\n\nKind regards,\nLena Fischer, Finance"
+    }
+  },
+  {
+    "id": "S08",
+    "input": {
+      "intent": "Thank a speaker for presenting at a company event",
+      "key_facts": [
+        "Their talk on resilient leadership drew the highest engagement of the day",
+        "Several attendees requested the slides afterward",
+        "Would love to invite them back for next year's summit"
+      ],
+      "tone": "appreciative and enthusiastic",
+      "recipient": "Dr. Osei",
+      "sender": "Events Team, Horizon"
+    },
+    "reference": {
+      "subject": "Thank you — your talk was the highlight of the day",
+      "body": "Dear Dr. Osei,\n\nThank you so much for joining us — your session on resilient leadership was a genuine highlight and drew the highest engagement of the entire day.\n\nThe impact was clear: several attendees reached out afterward asking for your slides, which speaks volumes about how much your message resonated. Whenever you have a moment to share them, we'll happily pass them along.\n\nWe'd be thrilled to invite you back for next year's summit. Thank you again for making the event so memorable.\n\nWith appreciation,\nEvents Team, Horizon"
+    }
+  },
+  {
+    "id": "S09",
+    "input": {
+      "intent": "Decline a partnership proposal while keeping the door open",
+      "key_facts": [
+        "The proposed integration does not fit the current roadmap",
+        "The team was genuinely impressed by their analytics platform",
+        "Open to revisiting in Q1 next year"
+      ],
+      "tone": "diplomatic and respectful",
+      "recipient": "Elena",
+      "sender": "Partnerships, Cobalt"
+    },
+    "reference": {
+      "subject": "Following up on your partnership proposal",
+      "body": "Hi Elena,\n\nThank you for sharing your partnership proposal and for the thoughtful conversations leading up to it. Our team was genuinely impressed by your analytics platform — it's clear you've built something strong.\n\nAfter careful review, the proposed integration doesn't fit our current roadmap, so we won't be moving forward at this time. I want to be straightforward about that rather than leave you waiting.\n\nThat said, our priorities shift each year, and I'd be glad to revisit this in Q1. I'll reach out then — and please don't hesitate to do the same.\n\nWith respect,\nPartnerships, Cobalt"
+    }
+  },
+  {
+    "id": "S10",
+    "input": {
+      "intent": "Invite select customers to a private beta program",
+      "key_facts": [
+        "Early access to the new analytics dashboard opens July 1st",
+        "Spots are limited to 50 participants",
+        "Participants get direct access to the product team and a 3-month free upgrade"
+      ],
+      "tone": "exciting and exclusive",
+      "recipient": "valued customer",
+      "sender": "The Lumen Product Team"
+    },
+    "reference": {
+      "subject": "You're invited: private beta for our new analytics dashboard",
+      "body": "Hi there,\n\nBecause you're one of our most valued customers, we'd like to offer you something special before anyone else hears about it. On July 1st, we're opening early access to our brand-new analytics dashboard — and we'd love for you to be part of it.\n\nThis is a genuinely exclusive group: spots are limited to just 50 participants. In return for your feedback, you'll get direct access to our product team and a 3-month free upgrade as our thanks.\n\nIf you'd like one of the spots, simply reply to this email and we'll save your place.\n\nExcited to build this with you,\nThe Lumen Product Team"
+    }
+  }
+]

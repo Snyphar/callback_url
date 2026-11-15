@@ -1,0 +1,12 @@
+SUBJECT: Request for Enterprise Proposal Details
+
+Dear Acme Solutions team,
+
+Thank you for the materials shared during our introduction. To advance our evaluation, we would be grateful for some further detail.
+
+Specifically, could you provide full pricing for the Enterprise tier, including any overage rates, together with a copy of your current SOC 2 Type II report for our security review? As our decision deadline is June 30th, an early response would be greatly appreciated.
+
+Please let us know if any additional information would assist on your side.
+
+Kind regards,
+Procurement, Northwind Ltd.

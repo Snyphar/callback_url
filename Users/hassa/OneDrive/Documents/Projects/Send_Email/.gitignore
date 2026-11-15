@@ -1,0 +1,27 @@
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local configuration and data
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
+*.sqlite3
+
+# Coverage and local tooling
+.coverage
+htmlcov/
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db

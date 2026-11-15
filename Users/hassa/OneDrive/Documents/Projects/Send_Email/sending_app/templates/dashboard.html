@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="dashboard-hero p-4 p-lg-5 mb-4">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-8">
+      <p class="text-uppercase small fw-semibold mb-2 opacity-75">Workspace overview</p>
+      <h1 class="display-6 fw-semibold mb-2">Good to see you, {{ current_user.username }}</h1>
+      <p class="mb-0 opacity-75">Monitor delivery, manage templates, and keep every campaign moving.</p>
+    </div>
+    <div class="col-lg-4 text-lg-end">
+      <a class="btn btn-light btn-lg" href="{{ url_for('index') }}">Compose email</a>
+    </div>
+  </div>
+</section>
+
+<div class="row g-3 mb-4">
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card dashboard-stat h-100 bg-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start">
+          <div><div class="small text-muted">Total emails</div><div class="display-6 fw-semibold text-dark">{{ total_emails }}</div></div>
+          <div class="stat-icon">#</div>
+        </div>
+        <div class="small text-success mt-2">{{ delivery_rate }}% sent successfully</div>
+      </div>
+    </div>
+  </div>
+  {% for status_name, label, color, symbol in [('queued', 'Queued', 'warning', 'Q'), ('sending', 'Sending', 'info', 'S'), ('sent', 'Sent', 'success', '✓')] %}
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="card dashboard-stat h-100 bg-white">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start">
+          <div><div class="small text-muted">{{ label }}</div><div class="fs-2 fw-semibold mt-2">{{ status_counts[status_name] }}</div></div>
+          <div class="stat-icon">{{ symbol }}</div>
+        </div>
+        <div class="small text-muted mt-2">Current queue status</div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3"><div class="card dashboard-stat h-100"><div class="card-body"><div class="small text-muted">Batches</div><div class="fs-4 fw-semibold">{{ total_batches }}</div></div></div></div>
+  <div class="col-6 col-lg-3"><div class="card dashboard-stat h-100"><div class="card-body"><div class="small text-muted">Templates</div><div class="fs-4 fw-semibold">{{ total_templates }}</div></div></div></div>
+  <div class="col-6 col-lg-3"><div class="card dashboard-stat h-100"><div class="card-body"><div class="small text-muted">Sending domains</div><div class="fs-4 fw-semibold">{{ total_domains }}</div></div></div></div>
+  {% if current_user.is_admin %}<div class="col-6 col-lg-3"><div class="card dashboard-stat h-100"><div class="card-body"><div class="small text-muted">Users</div><div class="fs-4 fw-semibold">{{ total_users }}</div></div></div></div>{% endif %}
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card dashboard-panel h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="card-title mb-0">Recent batches</h5>
+          <a class="small" href="{{ url_for('list_batches') }}">View all</a>
+        </div>
+        {% if batch_summaries %}
+        <div class="table-responsive">
+          <table class="table table-sm align-middle mb-0">
+            <thead><tr><th>Batch</th><th>Created</th><th>Progress</th><th></th></tr></thead>
+            <tbody>
+              {% for item in batch_summaries %}
+              <tr>
+                <td><span class="font-monospace small">{{ item.batch.id[:8] }}</span></td>
+                <td class="text-muted small">{{ item.batch.created_at.strftime('%b %d, %H:%M') if item.batch.created_at else '-' }}</td>
+                <td><span class="text-success">{{ item.sent }}</span> / {{ item.count }} sent{% if item.failed %}, <span class="text-danger">{{ item.failed }} failed</span>{% endif %}</td>
+                <td><a class="btn btn-sm btn-outline-secondary" href="{{ url_for('batch_details', batch_id=item.batch.id) }}">Open</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}<p class="text-muted mb-0">No batches yet. Compose an email to get started.</p>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card dashboard-panel h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="card-title mb-0">Latest activity</h5>
+          <a class="small" href="{{ url_for('view_queue') }}">Open queue</a>
+        </div>
+        {% if recent_emails %}
+        <div class="list-group list-group-flush">
+          {% for email in recent_emails %}
+          <div class="list-group-item px-0 d-flex justify-content-between gap-3">
+            <div class="text-truncate"><div class="fw-medium text-truncate">{{ email.to_email }}</div><div class="small text-muted text-truncate">{{ email.subject or 'No subject' }}</div></div>
+            {% set status_class = {'sent': 'success', 'failed': 'danger', 'sending': 'warning', 'queued': 'secondary'}.get(email.status, 'secondary') %}
+            <span class="badge text-bg-{{ status_class }} align-self-start">{{ email.status }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}<p class="text-muted mb-0">No email activity yet.</p>{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

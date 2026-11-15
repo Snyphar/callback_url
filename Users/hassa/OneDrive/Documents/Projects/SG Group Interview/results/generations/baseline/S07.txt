@@ -1,0 +1,11 @@
+SUBJECT: Overdue Invoice #1043
+
+Dear Accounts Payable,
+
+This is a reminder that invoice #1043 for $4,200 was due on May 15th and is now 30 days overdue.
+
+Please arrange payment or provide a status update by the end of this week. If payment is not received, a late fee will be applied as per our terms.
+
+Thank you.
+
+Regards,

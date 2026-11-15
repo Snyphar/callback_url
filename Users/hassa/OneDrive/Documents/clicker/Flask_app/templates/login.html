@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'partials/head.html' %}
+</head>
+<body>
+    <div id="centering">
+		<div id="centeringInner">
+			{% set page_title = 'SMS log in' %}
+			{% include 'partials/topbar.html' %}
+			<div id="wrapper">
+				{% include 'partials/left_nav.html' %}
+				<div id="rightContent">
+					<div id="centralContent" class="section">
+						<h2 class="pageTitle">SMS log in</h2>
+						<p>You must hold a sponsor licence to be able to log into SMS.</p>
+						<p>If you don't hold a licence or you want to add a route to an existing licence, please use the <a href="{{url_for('login')}}">sponsor application</a>.</p><p>To log into SMS, enter your SMS user ID and password. You <em>MUST</em> be an appointed Level 1 or 2 user to access SMS and to use any functions in the system. Misuse of SMS user IDs may lead to action being taken against you.</p><p>If you are copying and pasting your user ID and/or password, please ensure that spaces are not included at the end. If you enter an incorrect user ID or password three times, your account will be locked for approximately 20 minutes. If this occurs, you should try again later.</p><p>You must have Javascript enabled on your browser and a PDF viewer installed to use some functions in SMS.</p><p><em>You must never share your SMS user ID and/or password with another person. Misuse of SMS user IDs and/or passwords may lead to action being taken against you.</em></p>
+						<div class="inputRow">
+							<span class="leftlabelregular"><a id="changeSpDet" name="changeSpDet" href="{{url_for('login')}}">Forgotten your password?</a>
+							</span>
+						</div>
+						<div class="clr">
+						</div>
+						{% if error %}
+							<div class="errorRow">
+								<span class="err" id="err">{{ error }}</span>
+							</div>
+						{% endif %}
+						
+						<form id="smslogin" method="POST" name="smslogin" action="{{url_for('login')}}">
+							
+							<div class="fieldset">
+
+								<span class="question">
+									<span class="questionText"><label>SMS log in</label></span>
+								</span>
+
+								
+								<div class="inputRow">
+									<span class="leftlabelregular"><label for="j_username">User ID:</label></span>
+									<span class="field">
+										<input id="j_username" type="text" name="j_username" autocomplete="off" class="s40"  />
+									</span>
+								
+								</div>
+								<div class="clr"></div>
+								<div class="inputRow">
+				
+									<span class="leftlabelregular"><label for="j_password">Password:</label></span>
+									
+									<span class="field">
+										<input id="j_password" type="password" name="j_password" autocomplete="off" value="" class="s40" /> 
+									</span>
+								
+								</div>
+								<div class="clr"></div>
+							</div>
+							<br />
+							<span class="buttonBar">
+								<input id="login" type="submit" name="login" value="Log in" class="submit" />
+								<input id="cancel" type="submit" name="cancel" value="Cancel" class="submit" />
+							</span>
+						</form>
+					</div>
+					{% include 'partials/righ_nav.html' %}
+					
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Continue to login</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='verify.js') }}" defer></script>
+        <style>
+            .verification-indicator { display: inline-flex; align-items: center; gap: .5rem; }
+            .verification-spinner { display: none; width: 1rem; height: 1rem; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: verify-spin .7s linear infinite; }
+            .verification-check { display: none; color: #16803c; font-weight: 700; }
+            .is-loading .verification-spinner, .is-complete .verification-check { display: inline-block; }
+            @keyframes verify-spin { to { transform: rotate(360deg); } }
+            @media (prefers-reduced-motion: reduce) { .verification-spinner { animation-duration: 1.8s; } }
+        </style>
+    </head>
+<body>
+    <main class="checkbox-page">
+        {% if error %}
+        <p class="error" role="alert">{{ error }}</p>
+        {% endif %}
+<form method="post" id="verification-form"><input type="hidden" name="csrf" value="{{ session.csrf }}"><input type="hidden" name="engagement_status" id="engagement-status" value="unknown">
+<div class="robot-widget"><label class="robot-label"><input type="checkbox" name="human" value="yes" id="human-checkbox" required><span>I'm not a robot</span></label><div class="robot-brand"><span class="robot-icon" aria-hidden="true">↻</span><span>Local check</span><small>Click to continue</small></div></div>
+<noscript><button type="submit">Continue to login</button></noscript>
+<p id="verification-status" role="status" aria-live="polite"><span class="verification-indicator"><span class="verification-spinner" aria-hidden="true"></span><span class="verification-check" aria-hidden="true">✓</span><span id="verification-message"></span></span></p></form>
+</main>
+<script>
+(function (window) {
+    "use strict";
+    window.EngagementTracker = {
+        start({ onEngagement = () => {} } = {}) {
+            const controller = new AbortController();
+            const options = { passive: true, signal: controller.signal };
+            let startedAt, previous, lastSample, destroyed = false;
+            let state;
+
+            function reset() {
+                if (destroyed) return;
+                startedAt = performance.now();
+                previous = null;
+                lastSample = -Infinity;
+                state = { engaged: false, mouseSamples: 0, mouseDistance: 0, mouseDuration: 0, clicks: 0, touches: 0, keyboardInteractions: 0 };
+            }
+            reset();
+
+            function getSummary() {
+                return {
+                    status: state.engaged ? "interaction_observed" : "unknown",
+                    elapsedMs: Math.round(performance.now() - startedAt),
+                    mouseSamples: state.mouseSamples,
+                    mouseDistancePx: Math.round(state.mouseDistance),
+                    mouseDurationMs: Math.round(state.mouseDuration),
+                    clicks: state.clicks,
+                    touches: state.touches,
+                    keyboardInteractions: state.keyboardInteractions
+                };
+            }
+            function canObserve(event) {
+                return !destroyed && event.isTrusted && document.visibilityState === "visible";
+            }
+            function evaluate() {
+                if (state.engaged) return;
+                const mouseMoved = state.mouseSamples >= 5 && state.mouseDistance >= 40 && state.mouseDuration >= 250;
+                const interacted = state.clicks > 0 || state.touches > 0 || state.keyboardInteractions > 0;
+                if (mouseMoved || interacted) {
+                    state.engaged = true;
+                    onEngagement(getSummary());
+                }
+            }
+
+            document.addEventListener("pointermove", event => {
+                if (!canObserve(event) || event.pointerType !== "mouse" || state.engaged) return;
+                const now = performance.now();
+                if (now - lastSample < 50) return;
+                lastSample = now;
+                if (previous) {
+                    const elapsed = now - previous.time;
+                    if (elapsed <= 1000) {
+                        state.mouseDistance += Math.hypot(event.clientX - previous.x, event.clientY - previous.y);
+                        state.mouseDuration += elapsed;
+                    }
+                }
+                previous = { x: event.clientX, y: event.clientY, time: now };
+                state.mouseSamples++;
+                evaluate();
+            }, options);
+            document.addEventListener("pointerdown", event => {
+                if (!canObserve(event)) return;
+                if (event.pointerType === "touch") state.touches++;
+                else state.clicks++;
+                evaluate();
+            }, options);
+            document.addEventListener("keydown", event => {
+                if (!canObserve(event) || event.repeat) return;
+                if (["Tab", "Enter", " ", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+                    state.keyboardInteractions++;
+                    evaluate();
+                }
+            }, options);
+            document.addEventListener("visibilitychange", () => { previous = null; }, options);
+            return {
+                getSummary,
+                reset,
+                destroy() { destroyed = true; controller.abort(); previous = null; }
+            };
+        }
+    };
+})(window);
+
+(function () {
+    "use strict";
+    const form = document.getElementById("verification-form");
+    const checkbox = document.getElementById("human-checkbox");
+    const status = document.getElementById("verification-status");
+    const message = document.getElementById("verification-message");
+    const engagementField = document.getElementById("engagement-status");
+    let completionTimer;
+
+    window.EngagementTracker.start({
+        onEngagement(summary) {
+            engagementField.value = summary.status;
+            if (!checkbox.checked) message.textContent = "Interaction observed. Please confirm the checkbox to continue.";
+        }
+    });
+
+    checkbox.addEventListener("change", () => {
+        window.clearTimeout(completionTimer);
+        status.classList.remove("is-loading", "is-complete");
+        if (!checkbox.checked) {
+            message.textContent = "";
+            return;
+        }
+        status.classList.add("is-loading");
+        message.textContent = "Checking…";
+        completionTimer = window.setTimeout(() => {
+            status.classList.remove("is-loading");
+            status.classList.add("is-complete");
+            message.textContent = "Interaction observed; identity is not verified by this check.";
+        }, 500);
+    });
+
+    form.addEventListener("submit", () => {
+        status.classList.remove("is-complete");
+        status.classList.add("is-loading");
+        message.textContent = "Continuing…";
+    });
+})();
+</script>
+</body></html>

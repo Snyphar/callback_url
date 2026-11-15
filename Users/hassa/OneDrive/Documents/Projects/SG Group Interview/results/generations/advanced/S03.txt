@@ -1,0 +1,12 @@
+SUBJECT: ACTION NEEDED: Checkout outage — deployment freeze in effect
+
+Team,
+
+Checkout has been failing for customers since 2:10 PM UTC. The on-call team is actively investigating and currently estimates a fix within 30 minutes.
+
+Effective immediately, please freeze all deployments until we issue the all-clear — we need a clean window to verify the fix without introducing new changes.
+
+I'll share the next update as soon as our status changes.
+
+Thanks,
+Incident Commander

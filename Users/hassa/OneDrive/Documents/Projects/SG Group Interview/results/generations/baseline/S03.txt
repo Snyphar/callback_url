@@ -1,0 +1,12 @@
+SUBJECT: Production Issue Notification
+
+Hello Team,
+
+I am writing to inform you that the checkout system has been experiencing failures since 2:10 PM UTC. Our engineering team is currently investigating the issue and expects to have it resolved within approximately 30 minutes.
+
+In the meantime, please do not deploy any new changes until we confirm that everything is back to normal.
+
+Thank you for your understanding.
+
+Best regards,
+Incident Commander
